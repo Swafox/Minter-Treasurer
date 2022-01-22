@@ -17,7 +17,6 @@ const token = "TOKEN";
 // Creating the bot through TelegramBot class
 const bot = new TelegramBot(token, { polling: true });
 
-import XMLHttpRequest from 'XMLHttpRequest';
 // Create a bot that uses 'polling' to fetch new updates
 bot.on("polling_error", (err) => console.log(err));
 
