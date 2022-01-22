@@ -1,5 +1,4 @@
-import {Minter, TX_TYPE} from "minter-js-sdk";
-import {issueCheck} from "minter-js-sdk";
+import {Minter, TX_TYPE, issueCheck} from "minter-js-sdk";
 import { FeePrice } from 'minterjs-util';
 
 const minter = new Minter({apiType: 'node', baseURL: 'https://node-api.testnet.minter.network/v2/'});
