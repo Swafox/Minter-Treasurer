@@ -12,10 +12,10 @@ import fetch from 'isomorphic-fetch';
 import TelegramBot from 'node-telegram-bot-api';
 
 // Bot token
-var token = "TOKEN";
+const token = "TOKEN";
 
 // Creating the bot through TelegramBot class
-var bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot(token, { polling: true });
 
 import XMLHttpRequest from 'XMLHttpRequest';
 // Create a bot that uses 'polling' to fetch new updates
