@@ -1,4 +1,4 @@
-import {Minter, TX_TYPE, issueCheck} from "minter-js-sdk";
+import {Minter, TX_TYPE, issueCheck, prepareLink} from "minter-js-sdk";
 import { FeePrice } from 'minterjs-util';
 
 const minter = new Minter({apiType: 'node', baseURL: 'https://node-api.testnet.minter.network/v2/'});
@@ -51,12 +51,14 @@ export function redeem_check(self_add, check) {
         payload: '',
     };
 
-    return txParams;
+    return prepareLink(txParams);
     
 }
 
 export function delegate(publicKey, coin, stake) {
     const txParams = {
+        nonce: minter.getNonce(self_add),
+        chainId: 2,
         type: TX_TYPE.DELEGATE,
         data: {
             publicKey: publicKey,
@@ -73,6 +75,8 @@ export function delegate(publicKey, coin, stake) {
 
 export function unbound(publicKey, coin, stake) {
     const txParams = {
+        nonce: minter.getNonce(self_add),
+        chainId: 2,
         type: TX_TYPE.UNBOND,
         data: {
             publicKey: publicKey,
@@ -89,6 +93,8 @@ export function unbound(publicKey, coin, stake) {
 
 export function swap(sellcoin, buycoin, buyamount) {
     const txParams = {
+        nonce: minter.getNonce(self_add),
+        chainId: 2,
         type: TX_TYPE.BUY,
         data: {
             coinToSell: getCoinID(sellcoin), 
@@ -99,4 +105,19 @@ export function swap(sellcoin, buycoin, buyamount) {
         gasPrice: getFeeValue(TX_TYPE.BUY),
         payload: '',
     };
+}
+
+export function issueCheck(amount, coin, pass, seedPhrase) {
+    const check = issueCheck({
+        seedPhrase: 'air model item valley ...',
+        password: 'pass',
+        nonce: minter.getNonce(self_add),
+        chainId: 2,
+        coin: coin, // coin id
+        value: 10,
+        gasCoin: 0, // coin id
+        dueBlock: 9999999,
+    });
+
+    return check;
 }
