@@ -1,4 +1,4 @@
-import {walletFromMnemonic, generateMnemonic} from 'minterjs-wallet';
+import {walletFromMnemonic, generateMnemonic, isValidMnemonic} from 'minterjs-wallet';
 
 export function getWalletAddress(mnemonic) {
     const wallet = walletFromMnemonic(mnemonic);
@@ -8,4 +8,9 @@ export function getWalletAddress(mnemonic) {
 export function generateWallet() {
     const mnemonic = generateMnemonic();
     return mnemonic;
+}
+
+export function isValidMnemonic(mnemonic) {
+    const isValid = isValidMnemonic(mnemonic);
+    return isValid;
 }

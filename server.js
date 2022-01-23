@@ -1,7 +1,6 @@
 // Import custom modules
-import { redeem_check, send_coin, delegate, unbound, swap } from './Transactions/prepare_transaction.js';
-import { generateCheck } from './Transactions/checkservice.js';
-import { getWalletAddress, generateWallet } from './Wallet/wallet.js';
+import { redeem_check, send_coin, delegate, unbound, swap, issueCheck } from './Transactions/prepare_transaction.js';
+import { getWalletAddress, generateWallet, isValidMnemonic } from './Wallet/wallet.js';
 
 // Import main blockchain module and configure to use testnet
 import {Minter} from "minter-js-sdk";
@@ -25,11 +24,23 @@ bot.on("polling_error", (err) => console.log(err));
 // 'match' is the command parameters
 
 // Fetch latest info about the blockchain + BIP price from coingecko
-bot.onText(/\/info/ /* Matches '/info*/, (msg, match) => {
+bot.onText(/\/check/ /* Matches '/info*/, (msg, match) => {
 
 	const chatId = msg.chat.id; // Parsing chat id to send message to the same user
 
-	message = 'Data'
+	// match
+	var message = "Your check" + issueCheck(100, BIP, pass, 'MY MNEMONIC');
+
+	/* Add function to verify the mnemonic
+	var message = str.split(',');
+	if (isValidMnemonic(message[3])) {
+		// Send message to the user
+		bot.sendMessage(chatId, 'Mnemonic is valid!');
+	} else {
+		// Send message to the user
+		bot.sendMessage(chatId, 'Mnemonic is invalid!');
+	}
+	*/
 	// send the response
 	bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
 
@@ -47,3 +58,10 @@ bot.onText(/\/wallet (.+)/ /* Matches '/wallet {}' command */, (msg, match) => {
 	// send data back
 	bot.sendMessage(chatId, messageConstruct, { parse_mode: "Markdown" });
   });
+
+bot.onText(/\/new_wallet/ /* Matches '/delegate {}' command */, (msg) => {
+	const chatId = msg.chat.id;
+
+	bot.sendMessage(chatId, "Your new wallet mnemonic:\n" + generateWallet(), { parse_mode: "Markdown" });
+
+});
