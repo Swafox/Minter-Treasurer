@@ -46,6 +46,19 @@ bot.onText(/\/check/ /* Matches '/info*/, (msg, match) => {
 
   });
 
+// Function to verify mnemonic
+bot.onText(/\/verify (.+)/ /* Matches '/wallet {}' command */, (msg, match) => {
+	const chatId = msg.chat.id; // Parsing chat id to send message to the same user
+	const resp = match[1]; // the captured data
+
+	if (isValidMnemonic(resp)) {
+		// Send message to the user
+		bot.sendMessage(chatId, 'Mnemonic is valid!');
+	} else {
+		// Send message to the user
+		bot.sendMessage(chatId, 'Mnemonic is invalid!');
+	}
+});
 // Handle wallet command (mnemonic to address for sharing)
 bot.onText(/\/wallet (.+)/ /* Matches '/wallet {}' command */, (msg, match) => {
 
