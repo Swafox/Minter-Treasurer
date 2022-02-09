@@ -107,13 +107,13 @@ export function swap(sellcoin, buycoin, buyamount) {
     };
 }
 
-export function issueCheck(amount, coin, pass, seedPhrase) {
+export function newCheck(amount, pass, seedPhrase, self_add) {
     const check = issueCheck({
         seedPhrase: seedPhrase,
         password: pass,
         nonce: minter.getNonce(self_add),
         chainId: 2,
-        coin: coin, // coin id
+        coin: 0, // coin id
         value: amount,
         gasCoin: 0, // coin id
         dueBlock: 9999999,

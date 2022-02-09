@@ -10,7 +10,7 @@ export function generateWallet() {
     return mnemonic;
 }
 
-export function isValidMnemonic(mnemonic) {
+export function ValidMnemonic(mnemonic) {
     const isValid = isValidMnemonic(mnemonic);
     return isValid;
 }
