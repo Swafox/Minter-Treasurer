@@ -30,13 +30,13 @@ __<TO BE UPDATED>__
    ```sh
    git clone https://github.com/Swafox/Minter-Treasurer
    ```
-2. Install NPM packages
+2. Update NPM packages
    ```sh
    npm install
    ```
 3. Run the project
    ```js
-   npm server.js
+   node server.js
    ```
 
 
