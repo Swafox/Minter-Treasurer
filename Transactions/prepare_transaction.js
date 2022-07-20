@@ -116,7 +116,7 @@ export function newCheck(amount, pass, seedPhrase, self_add) {
         coin: 0, // coin id
         value: amount,
         gasCoin: 0, // coin id
-        dueBlock: 9999999,
+        dueBlock: 9999999999,
     });
 
     return check;

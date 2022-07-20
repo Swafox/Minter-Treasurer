@@ -9,19 +9,10 @@
 </div>
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-__<TO BE UPDATED>__
-
-
-
 ### Built With
 
 * [Node.js](https://nodejs.org/en/)
 * [Minter JS](https://github.com/MinterTeam/minter-js-sdk)
-
-
 
 
 ### Installation & Usage
@@ -38,7 +29,7 @@ __<TO BE UPDATED>__
    ```js
    node server.js
    ```
-
+<-- TESTNET VERSION -->
 
 
 <!-- ROADMAP -->
@@ -47,8 +38,18 @@ __<TO BE UPDATED>__
 - [x] Create working transaction proposer with dynamic fee calculation
 - [x] Support the wallet module, ported from Ethereum JS SDK
 - [X] Self-custodial functionality with mnemonic signing
-- [ ] Telegram bot for 'text-based' interaction with the treasurer
-- [ ] Inline tx creation for sending blockchain transactions through personal chat
+- [WIP] Telegram bot for 'text-based' interaction with the treasurer
+   #### **Implemented:**
+   - [X] Check creating
+   - [X] Mnemonic validation
+   - [X] New wallet creation
+   #### **Implemented but not wrapped in a command:**
+   - [ ] Delegation
+   - [ ] Swap: DeFi Exchange
+   - [ ] Withdraw
+   - [ ] Send coins 
+   - [ ] Check redeeming
+- [ ] Inline tx creation for sending blockchain transactions through embeded chat
 
 
 <!-- CONTRIBUTING -->

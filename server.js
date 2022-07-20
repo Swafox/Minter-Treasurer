@@ -10,7 +10,7 @@ const minter = new Minter({apiType: 'node', baseURL: 'https://node-api.testnet.m
 import TelegramBot from 'node-telegram-bot-api';
 
 // Bot token
-const token = "/* ... TOKEN ... */";
+const token = "/* ... */";
 
 // Creating the bot through TelegramBot class
 const bot = new TelegramBot(token, { polling: true });
@@ -32,22 +32,26 @@ bot.onText(/\/check (.+)/ /* Matches '/info*/, (msg, match) => {
 	var data = resp.split(" ");
 	var amount = data[0];
 	var passphrase = data[1];
-	// loop from to 2 to 14 to get the rest of the data into a single variable
+	
+	var sign_message = "Use /sign {mneumonic} to sign the transaction";
+	bot.sendMessage(chatId, sign_message);
+
 	var mnemonic;
-	for (var i = 2; i < data.length; i++) {
-		mnemonic += data[i] + " ";
-	}
-	mnemonic = mnemonic.replace(/undefined/g, "");
-	// var message = "amount: " + amount + "\n" + "passphrase: " + passphrase + "\n" + "mnemonic: " + mnemonic;
-	
-	// Check if the mnemonic is valid and proceed to create the check
-	
-	var self_address = getWalletAddress(mnemonic);
-	var message = "Here is your check for " + amount + " BIP!\n**" + newCheck(100, passphrase, mnemonic, self_address); + "**";
+	bot.onText(/\/sign (.+)/, (msg, match) => {
+		mnemonic = match[1];
+		if (ValidMnemonic(mnemonic)) {
+			// Send message to the user
+			var self_address = getWalletAddress(mnemonic);
+			var message = "Here is your check for " + amount + " BIP!\n**" + newCheck(100, passphrase, mnemonic, self_address); + "**";
+		} else {
+			// Send message to the user
+			bot.sendMessage(chatId, 'Mnemonic is invalid!');
+		}
+		
 
-	// send the response
-	bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
-
+		// send the response
+		bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
+	});
   });
 
 // Function to verify mnemonic
@@ -70,7 +74,7 @@ bot.onText(/\/wallet (.+)/ /* Matches '/wallet {}' command */, (msg, match) => {
 	const resp = match[1]; // the captured data
 	
 	const walletAddress = getWalletAddress(resp); // Parse the wallet address from the mnemonic
-	const messageConstruct = `**Your wallet address**:\nWallet address: ${walletAddress}\nExplorer: https://explorer.testnet.minter.network/address/${walletAddress}`;
+	const messageConstruct = `**Wallet address**: ${walletAddress}\nExplorer: https://explorer.testnet.minter.network/address/${walletAddress}`;
 
 	// send data back
 	bot.sendMessage(chatId, messageConstruct, { parse_mode: "Markdown" });
