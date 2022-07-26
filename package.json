@@ -16,6 +16,7 @@
     "minterjs-util": "^0.22.0",
     "minterjs-wallet": "^6.1.1",
     "node-telegram-bot-api": "^0.56.0",
+    "file-type": ">=16.5.4",
     "xmlhttprequest": "^1.8.0"
   },
   "type": "module"
