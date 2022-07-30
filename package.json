@@ -11,13 +11,12 @@
   "license": "MIT",
   "dependencies": {
     "coingecko-api": "^1.0.10",
+    "file-type": ">=16.5.4",
     "isomorphic-fetch": "^3.0.0",
     "minter-js-sdk": "^0.41.0",
     "minterjs-util": "^0.22.0",
     "minterjs-wallet": "^6.1.1",
-    "node-telegram-bot-api": "^0.56.0",
-    "file-type": ">=16.5.4",
-    "xmlhttprequest": "^1.8.0"
+    "node-telegram-bot-api": "^0.56.0"
   },
   "type": "module"
 }

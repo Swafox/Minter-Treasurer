@@ -19,7 +19,7 @@ function getCoinID(coin) {
     return minter.getCoinID(coin);
 }
 
-export function send_coin(self_add, dest_add, amount, coin) {
+export function send_coin(self_add, dest_add, amount) {
     const txParams = {
         nonce: minter.getNonce(self_add),
         chainId: 2,
@@ -27,10 +27,9 @@ export function send_coin(self_add, dest_add, amount, coin) {
         data: {
             to: dest_add,
             value: amount,
-            coin: getCoinID(coin),
+            coin: 0,
         },
         gasCoin: 0,
-        gasPrice: getFeeValue(TX_TYPE.SEND),
         payload: '',
     };
 

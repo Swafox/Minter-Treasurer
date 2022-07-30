@@ -25,7 +25,7 @@
    ```sh
    npm install
    ```
-3. Run the project
+4. Run the project
    ```js
    node server.js
    ```
