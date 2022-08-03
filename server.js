@@ -1,6 +1,6 @@
 // Import custom modules
 import {send_coin, newCheck } from './Transactions/prepare_transaction.js';
-import { getWalletAddress, generateWallet, ValidMnemonic } from './Wallet/wallet.js';
+import { generateWallet, getWalletAddress, ValidMnemonic } from './Wallet/wallet.js';
 import axios from 'axios';
 
 // Import main blockchain module and configure to use testnet
@@ -31,28 +31,26 @@ bot.onText(/\/check (.+)/ /* Matches '/info*/, (msg, match) => {
 	const resp = match[1]; // the captured data from the regexp
 
 	// Separating data
-	var data = resp.split(" ");
-	var amount = data[0];
-	var passphrase = data[1];
+	const data = resp.split(" ");
+	const amount = data[0];
+	const passphrase = data[1];
 	
-	var sign_message = "Use /sign {mneumonic} to sign the transaction";
+	const sign_message = "Use /sign {mneumonic} to sign the transaction";
 	bot.sendMessage(chatId, sign_message);
 
-	var mnemonic;
+	let mnemonic;
 	bot.onText(/\/sign (.+)/, (msg, match) => {
 		mnemonic = match[1];
 		if (ValidMnemonic(mnemonic)) {
 			// Send message to the user
-			var self_address = getWalletAddress(mnemonic);
-			var message = "🗒️ Here is your check for " + amount + " BIP!\n\n**" + newCheck(100, passphrase, mnemonic, self_address); + "**";
+			const self_address = getWalletAddress(mnemonic);
+			const message = "🗒️ Here is your check for " + amount + " BIP!\n\n**" + newCheck(100, passphrase, mnemonic, self_address); + "**";
+			bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
 		} else {
 			// Send message to the user
 			bot.sendMessage(chatId, 'Mnemonic is invalid!');
 		}
 		
-
-		// send the response
-		bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
 	});
   });
 
@@ -75,7 +73,7 @@ bot.onText(/\/wallet (.+)/ /* Matches '/wallet {}' command */, (msg, match) => {
 	const chatId = msg.chat.id; // Parsing chat id to send message to the same user
 	const resp = match[1]; // the captured data
 	const walletAddress = getWalletAddress(resp); // Parse the wallet address from the mnemonic
-	var req = "https://node-api.testnet.minter.network/v2/address/" + walletAddress;
+	let req = "https://node-api.testnet.minter.network/v2/address/" + walletAddress;
 	axios
 		.get(req)
 		.then(function (response) {
@@ -100,25 +98,24 @@ bot.onText(/\/send (.+)/ /* Matches '/info*/, (msg, match) => {
 	const resp = match[1]; // the captured data from the regexp
 
 	// Separating data
-	var data = resp.split(" ");
-	var amount = data[0];
-	var dest_add = data[1];
+	const data = resp.split(" ");
+	const amount = data[0];
+	const dest_add = data[1];
 	
-	var sign_message = "Use /sign {mneumonic} to sign the transaction";
+	const sign_message = "Use /sign {mneumonic} to sign the transaction";
 	bot.sendMessage(chatId, sign_message);
 
-	var mnemonic;
+	let mnemonic;
 	bot.onText(/\/sign (.+)/, (msg, match) => {
 		mnemonic = match[1];
 		if (ValidMnemonic(mnemonic)) {
-			var tx_params = send_coin(getWalletAddress(mnemonic), dest_add, amount);
+			const tx_params = send_coin(getWalletAddress(mnemonic), dest_add, amount);
 
-			var message = "🚀 Sending " + amount + " BIP to " + dest_add + "...";
+			const message = "🚀 Sending " + amount + " BIP to " + dest_add + "...";
 			bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
 			minter.postTx(tx_params, {seedPhrase: mnemonic})
 				.then((txHash) => {
-					console.log(`Tx created: ${txHash.hash}`);
-					var message = "💰 Sent!\n" + "Tx hash: " + txHash.hash;
+					const message = "💰 Sent!\n" + "Tx hash: " + txHash.hash;
 					bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
 				});
 
