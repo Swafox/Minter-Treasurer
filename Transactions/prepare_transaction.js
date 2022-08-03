@@ -54,7 +54,7 @@ export function redeem_check(self_add, check) {
     
 }
 
-export function delegate(publicKey, coin, stake) {
+export function delegate(self_add, publicKey, coin, stake) {
     const txParams = {
         nonce: minter.getNonce(self_add),
         chainId: 2,
@@ -72,7 +72,7 @@ export function delegate(publicKey, coin, stake) {
     return txParams;
 }
 
-export function unbound(publicKey, coin, stake) {
+export function unbound(self_add, publicKey, coin, stake) {
     const txParams = {
         nonce: minter.getNonce(self_add),
         chainId: 2,
@@ -90,7 +90,7 @@ export function unbound(publicKey, coin, stake) {
     return txParams;
 }
 
-export function swap(sellcoin, buycoin, buyamount) {
+export function swap(self_add, sellcoin, buycoin, buyamount) {
     const txParams = {
         nonce: minter.getNonce(self_add),
         chainId: 2,
@@ -104,6 +104,8 @@ export function swap(sellcoin, buycoin, buyamount) {
         gasPrice: getFeeValue(TX_TYPE.BUY),
         payload: '',
     };
+    
+    return txParams;
 }
 
 export function newCheck(amount, pass, seedPhrase, self_add) {

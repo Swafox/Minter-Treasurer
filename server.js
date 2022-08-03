@@ -1,6 +1,7 @@
 // Import custom modules
-import { redeem_check, send_coin, delegate, unbound, swap, newCheck } from './Transactions/prepare_transaction.js';
+import {send_coin, newCheck } from './Transactions/prepare_transaction.js';
 import { getWalletAddress, generateWallet, ValidMnemonic } from './Wallet/wallet.js';
+import axios from 'axios';
 
 // Import main blockchain module and configure to use testnet
 import {Minter} from "minter-js-sdk";
@@ -8,15 +9,11 @@ const minter = new Minter({apiType: 'node', baseURL: 'https://node-api.testnet.m
 
 // Telegram module import
 import TelegramBot from 'node-telegram-bot-api';
-0
+
 // Bot token
 const token = "/* Telegram bot token */";
 
-if (token === "") {
-	console.log("Please set your bot token in server.js line 13");
-	process.exit(1);
-}
-
+const tokenomics = 10 ** 18;
 // Creating the bot through TelegramBot class
 const bot = new TelegramBot(token, { polling: true });
 
@@ -77,12 +74,17 @@ bot.onText(/\/wallet (.+)/ /* Matches '/wallet {}' command */, (msg, match) => {
 
 	const chatId = msg.chat.id; // Parsing chat id to send message to the same user
 	const resp = match[1]; // the captured data
-	
 	const walletAddress = getWalletAddress(resp); // Parse the wallet address from the mnemonic
-	const messageConstruct = `**💸 Your Wallet \nAddress**: ${walletAddress}\nExplorer: https://explorer.testnet.minter.network/address/${walletAddress}`;
+	var req = "https://node-api.testnet.minter.network/v2/address/" + walletAddress;
+	axios
+		.get(req)
+		.then(function (response) {
+			const balance = response.data.bip_value / tokenomics;
+			const messageConstruct = `**💸 Your Wallet\nBalance: ${balance} BIP\nAddress**: [${walletAddress}](https://explorer.testnet.minter.network/address/${walletAddress})`;
 
-	// send data back
-	bot.sendMessage(chatId, messageConstruct, { parse_mode: "Markdown" });
+			// send data back
+			bot.sendMessage(chatId, messageConstruct, { parse_mode: "Markdown" });
+	});
   });
 
 bot.onText(/\/new_wallet/ /* Matches '/delegate {}' command */, (msg) => {
