@@ -1,5 +1,7 @@
-- name: Action ESLint
-  uses: sibiraj-s/action-eslint@v2.1.1
+name: Lint
+
+env:
+  NODE_VERSION: 16
 
 on:
   pull_request:
@@ -8,17 +10,22 @@ on:
       - master
 
 jobs:
-  eslint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - run: npm ci # or yarn install
-      - uses: sibiraj-s/action-eslint@v2
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: node --version
+      - run: npm --version
+
+      - run: npm ci
+      - run: npm ls --depth=0
+
+      - name: Action ESLint
+      - uses: sibiraj-s/action-eslint@v2.1.1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
-          eslint-args: '--ignore-path=.gitignore --quiet'
-          extensions: 'js,jsx,ts,tsx'
-          annotations: true
+          extensions: 'js,ts'
