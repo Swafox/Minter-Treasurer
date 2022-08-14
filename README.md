@@ -78,10 +78,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 [@swafox_](https://twitter.com/swafox_) 
 
-Project Link: [https://github.com/Swafox/Minter-Treasurer](https://github.com/Swafox/Minter-Treasurer)
-
-
-
 <!-- DOCS -->
 ## Documentation used
 
