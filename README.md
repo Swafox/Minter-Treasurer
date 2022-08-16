@@ -5,7 +5,7 @@
     <img src="images/logo.png" alt="Logo" width="300" height="300">
   </a>
 
-  <h3 align="center">🍃 Minter Treasurer 🍃 v2.5</h3>
+  <h3 align="center">🍃 Minter Treasurer 🍃 v2.6</h3>
 </div>
 
 
