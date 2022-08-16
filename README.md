@@ -42,8 +42,8 @@
    - [X] Mnemonic validation
    - [X] New wallet creation
    - [X] Send coins 
+   - [X] Delegation
    #### **Implemented but not wrapped in a command:**
-   - [ ] Delegation
    - [ ] Swap: DeFi Exchange
    - [ ] Withdraw
    - [ ] Check redeeming

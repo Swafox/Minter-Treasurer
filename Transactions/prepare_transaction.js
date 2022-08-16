@@ -46,7 +46,7 @@ export function redeem_check(self_add, check) {
             check: check,
         },
         gasCoin: 0,
-        gasPrice: getFeeValue(TX_TYPE.REDEEM_CHECK),
+        
         payload: '',
     };
 
@@ -54,18 +54,17 @@ export function redeem_check(self_add, check) {
     
 }
 
-export function delegate(self_add, publicKey, coin, stake) {
+export function delegate(self_add, publicKey, stake) {
     const txParams = {
         nonce: minter.getNonce(self_add),
         chainId: 2,
         type: TX_TYPE.DELEGATE,
         data: {
             publicKey: publicKey,
-            coin: getCoinID(coin),
+            coin: 0,
             stake: stake,
         },
         gasCoin: 0,
-        gasPrice: getFeeValue(TX_TYPE.DELEGATE),
         payload: '',
     };
 
